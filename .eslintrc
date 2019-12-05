@@ -1,0 +1,13 @@
+{
+    "parser": "babel-eslint",
+    "parserOptions": {
+  
+      "sourceType": "module"
+  
+    },
+    "extends": ["plugin:prettier/recommended","plugin:react/recommended"],
+    "rules": {
+      "no-console": "error",
+      "react/prop-types": 0
+    }
+  }
