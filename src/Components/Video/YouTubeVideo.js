@@ -1,6 +1,15 @@
 import React, { useEffect } from 'react';
-import { inject, observer } from 'mobx-react';
 import config from '../../config/api';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  player: {
+    [theme.breakpoints.down('sm')]: {
+      width: 300,
+      height: 200,
+    },
+  },
+}));
 
 const cbPlayerReady = event => {
   event.target.playVideo();
@@ -10,8 +19,8 @@ let player;
 
 const YouTubeVideo = ({ playingVideoId }) => {
   const videoIdValue = playingVideoId.get();
-
-  const loadVideo = id => {
+  const classes = useStyles();
+  const loadVideo = () => {
     player = new window.YT.Player(`player`, {
       videoId: videoIdValue,
       events: {
@@ -31,9 +40,9 @@ const YouTubeVideo = ({ playingVideoId }) => {
     } else {
       player.loadVideoById(videoIdValue);
     }
-  }, [videoIdValue]);
+  });
 
-  return <div id={`player`} />;
+  return <div id={`player`} className={classes.player} />;
 };
 
 export default YouTubeVideo;

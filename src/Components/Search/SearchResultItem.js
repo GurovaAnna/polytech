@@ -5,7 +5,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { inject, observer } from 'mobx-react';
 import { get } from 'lodash';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import HistoryItem from './HistoryItem';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -11,7 +11,7 @@ const HistoryList = inject('appStore')(
       getHistoryList();
       const cleanup = () => {};
       return cleanup;
-    }, []);
+    }, [getHistoryList]);
 
     return (
       <List subheader={<ListSubheader component="div">History</ListSubheader>}>

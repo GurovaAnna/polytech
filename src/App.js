@@ -19,9 +19,14 @@ function App() {
             <HistoryList />
           </Grid>
           <Grid item xs={12} sm={12} md={9}>
-            <Search />
-
-            <YouTubeWrapper />
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={12} md={12}>
+                <Search />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12}>
+                <YouTubeWrapper />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </div>

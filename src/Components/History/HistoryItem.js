@@ -9,27 +9,31 @@ import Typography from '@material-ui/core/Typography';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import { makeStyles } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
+import { get } from 'lodash';
 
 const useStyles = makeStyles(theme => ({
-  listItem: {},
+  listItemAvatar: {
+    cursor: 'pointer',
+  },
 }));
 
 const HistoryItem = inject('appStore')(
   observer(({ appStore, video }) => {
     const { handleDeleteBtnClick, handlePlayBtnClick } = appStore;
     const classes = useStyles();
+    const { snippet } = video;
+    const url = get(snippet, 'thumbnails.default.url');
     return (
       <>
         <ListItem alignItems="flex-start">
-          <ListItemAvatar onClick={() => handlePlayBtnClick(video)}>
-            <Avatar
-              alt={video.snippet.title}
-              src={video.snippet.thumbnails.default.url}
-              variant="square"
-            />
+          <ListItemAvatar
+            onClick={() => handlePlayBtnClick(video)}
+            className={classes.listItemAvatar}
+          >
+            <Avatar alt={snippet.title} src={url} variant="square" />
           </ListItemAvatar>
 
-          <ListItemText className={classes.listItem}>
+          <ListItemText>
             <Typography variant="body2">{video.date}</Typography>
           </ListItemText>
           <IconButton

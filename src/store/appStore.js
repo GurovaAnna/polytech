@@ -1,11 +1,10 @@
 import endpoints from '../config/api';
-import { observable, runInAction, action, computed } from 'mobx';
-import { debounce, find, reject } from 'lodash';
+import { observable, runInAction, action } from 'mobx';
+import { debounce, cloneDeep } from 'lodash';
 
 export default class AppStore {
   name = observable.box('');
   playingVideoId = observable.box('');
-  isLoading = observable.box(true);
   isVisible = observable.box(false);
   videoList = observable.map();
   historyList = observable.array();
@@ -32,7 +31,6 @@ export default class AppStore {
       resultData = null;
       if (res.items.length !== 0) {
         runInAction(() => {
-          this.isLoading.set(false);
           this.isVisible.set(true);
           this.videoList.set('videos', res.items);
         });
@@ -42,7 +40,6 @@ export default class AppStore {
     } catch (error) {
       runInAction(() => {
         this.videoList.set('videos', []);
-        this.isLoading.set(false);
         this.isVisible.set(false);
       });
     }
@@ -51,8 +48,9 @@ export default class AppStore {
   handlePlayBtnClick = action(video => {
     this.playingVideoId.set(video.id.videoId);
     const now = new Date();
-    video.date = now.toLocaleString('en-US');
-    this.historyList.push(video);
+    const clonedVideo = cloneDeep(video);
+    clonedVideo.date = now.toLocaleString('en-US');
+    this.historyList.push(clonedVideo);
     this.handleLocalStorage(this.historyList);
     this.videoList.set('videos', []);
     this.name.set('');
